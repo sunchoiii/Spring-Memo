@@ -1,6 +1,5 @@
 package com.sparta.memo.service;
 //비즈니스 로직 수정
-
 import com.sparta.memo.dto.MemoRequestDto;
 import com.sparta.memo.dto.MemoResponseDto;
 import com.sparta.memo.entity.Memo;
@@ -39,7 +38,6 @@ public class MemoService {
 
     @Transactional
     public Long updateMemo(Long id, MemoRequestDto requestDto) {
-        // 해당 메모가 DB에 존재하는지 확인
         Memo memo = findMemo(id);
         // memo 내용 수정
         memo.update(requestDto);
@@ -48,13 +46,13 @@ public class MemoService {
 
 
     public Long deleteMemo(Long id) {
-        // 해당 메모가 DB에 존재하는지 확인
         Memo memo = findMemo(id);
         // memo 삭제
         memoRepository.delete(memo);
         return id;
     }
 
+    // 해당 메모가 DB에 존재하는지 확인
     private Memo findMemo(Long id) {
         return memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 메모는 존재하지 않습니다")
